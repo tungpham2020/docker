@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: java-spingboot-config
+data:
+  DB_PORT: ""
+  DB_HOST: ""
+  DB_DATABASE: ""
+  DB_USERNAME: ""
+  DB_PASSWORD: ""
