@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongod-dev
+  name: mongod
+  namespace: dev
 spec:
   serviceName: mongodb-service
   replicas: 3
@@ -17,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongod-container
-          image: mongo:3.6
+          image: mongo
           command:
             - "mongod"
             - "--bind_ip"

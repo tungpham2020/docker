@@ -20,7 +20,7 @@ spec:
       containers:
         - name: java-spingboot
           imagePullPolicy: Always
-          image: registry/java-spingboot:v1.4
+          image: registry.s-one.finance/vnpt-dx-app-service:latest
           ports:
           - containerPort: 80
             name: http
