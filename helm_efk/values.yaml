@@ -1,0 +1,31 @@
+# Default values for helm_efk.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  # environment of your application (ex: dev, qa, prod...), this value can be specified on install.sh.
+  environment: ""
+  # your namespace, this value can be specified on install.sh.
+  namespace: ""
+
+replicaCount:
+  es: 2
+  kibana: 1
+image:
+  es: docker.elastic.co/elasticsearch/elasticsearch:6.5.0
+  fluentbit: fluent/fluent-bit:1.5
+  kibana: docker.elastic.co/kibana/kibana:6.5.0
+# resources are requested for pods
+resource:
+  es: 
+    memory: "4Gi"
+    cpu: "2048m"
+  fluentbit:
+    memory: "20Mi"
+    cpu: "10m"
+  kibana:
+    memory: "2Gi"
+    cpu: "512m"
+# value is true if your k8s cluster is on-premises, value is false if your k8s cluster is on cloud provider (ex: AWS, GCP, Azure...)
+onPremises:
+  enabled: true

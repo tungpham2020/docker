@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.global.namespace }}
+  name: kibana
+  labels:
+    app: kibana
+spec:
+  ports:
+  - name: webinterface
+    port: 5601
+    {{ if .Values.onPremises.enabled }}
+    nodePort: 31080
+    {{ end }}
+    targetPort: 5601
+  selector:
+    app: kibana
+  {{ if .Values.onPremises.enabled }}
+  type: NodePort
+  {{ else }}
+  type: LoadBalancer
+  {{ end }}

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.global.namespace }}
+  name: kibana
+  labels:
+    app: kibana
+spec:
+  replicas: {{ .Values.replicaCount.kibana }}
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: {{ .Values.image.kibana }}
+        resources:
+          requests:
+            memory: {{ .Values.resource.kibana.memory }}
+            cpu: {{ .Values.resource.kibana.cpu }}
+          limits:
+            memory: "2Gi"
+            cpu: "2048m"
+        ports:
+        - containerPort: 5601
+          name: webinterface
+        env:
+        - name: ELASTICSEARCH_HOSTS
+          value: "http://es-svc-endpoint.{{ .Values.global.namespace }}.svc.cluster.local:9200"
+        - name: ELASTICSEARCH_USER
+          value: "elastic"
+        - name: ELASTICSEARCH_PASSWORD
+          value: "elastic"
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/kibana/config/kibana.yml
+          readOnly: true
+          subPath: kibana.yml
+      volumes:
+      - name: config
+        configMap:
+          name: kibana-config
