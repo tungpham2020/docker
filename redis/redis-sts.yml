@@ -17,12 +17,15 @@ spec:
         - name: redis
           image: redis:5.0.10
           imagePullPolicy: Always
+          args: ["--requirepass", "$(REDIS_PASS)"]
           ports:
             - containerPort: 6379
               name: redis
           envFrom:
             - configMapRef:
                 name: redis-cluster
+            - secretRef:
+                name: redis-secret
           volumeMounts:
             - mountPath: /data
               name: redis-storage-claim
