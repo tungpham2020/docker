@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongod
+  namespace: dev
 spec:
   serviceName: mongodb-service
   replicas: 3
@@ -23,7 +24,7 @@ spec:
             defaultMode: 256
       containers:
         - name: mongod-container
-          image: mongo
+          image: mongo:3.6
           command:
             - "mongod"
             - "--bind_ip"

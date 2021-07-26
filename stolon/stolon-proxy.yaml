@@ -51,5 +51,5 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 5432
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             timeoutSeconds: 5
